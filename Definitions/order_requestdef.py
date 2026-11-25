@@ -14,19 +14,17 @@ from Definitions.paymentsourcedef import payment_source
 
 
 def order_req(Payer: Payer_Information, Card: Card_information, PurchasedUnitR: PurchasedUnitReqInfo):
-    intent = CheckoutPaymentIntent.CAPTURE,
-    purchase_units = [purchasedUnitReq(PurchasedUnitR)],
-    processing_instruction = ProcessingInstruction.ORDER_COMPLETE_ON_PAYMENT_APPROVAL,
-    payer = payer_def(Payer),
+    intent = CheckoutPaymentIntent.CAPTURE
+    purchase_units = [purchasedUnitReq(PurchasedUnitR)]
+    payer = payer_def(Payer)
     payment_sour = payment_source(Card)
     application_context = OrderApplicationContext(
         brand_name='brand_name8',
-        locale='locale2',
+        locale='es-CR',
         landing_page=OrderApplicationContextLandingPage.BILLING,
-        shipping_preference=OrderApplicationContextShippingPreference.SET_PROVIDED_ADDRESS,
         user_action=OrderApplicationContextUserAction.CONTINUE
     )
-    order_requt = OrderRequest(intent=intent, purchase_units=purchase_units, payment_source=payment_sour,
-                               processing_instruction=processing_instruction, payer=payer, application_context=application_context)
+    order_requt = OrderRequest(intent=intent, purchase_units=purchase_units,
+                               payment_source=payment_sour, payer=payer, application_context=application_context)
 
     return order_requt

@@ -10,10 +10,10 @@ def card(PaymentCard: Card_information):
         expiry=PaymentCard.expiry,
         security_code=PaymentCard.security,
         billing_address=Address(
-            country_code=PaymentCard.address.country_code,
-            address_line_1=PaymentCard.address.address_line_1,
-            address_line_2=PaymentCard.address.address_line_2,
-            postal_code=PaymentCard.address.postal_code
+            country_code=str(PaymentCard.address.country_code),
+            address_line_1=str(PaymentCard.address.address_line_1),
+            address_line_2=str(PaymentCard.address.address_line_2),
+            postal_code=str(PaymentCard.address.postal_code)
         )
     )
 

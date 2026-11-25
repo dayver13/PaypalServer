@@ -1,5 +1,6 @@
 from paypalserversdk.models.order_request import OrderRequest
 from paypalserversdk.paypal_serversdk_client import PaypalServersdkClient
+import uuid
 
 
 class OrderController:
@@ -12,13 +13,11 @@ class OrderController:
     def addbody(self, OrderR: OrderRequest):
         self.body = OrderR
 
-    def returnCollect(self):
-        orderreform = {'body': self.body}
-        return orderreform
-
     def create_order(self, client: PaypalServersdkClient):
-        orders = client().orders
-        result = orders.create_order(self.returnCollect)
+        orderreform = {'body': self.body, 'prefer': 'return=minimal',
+                       'paypal_request_id': str(uuid.uuid4())}
+        orders = client.orders
+        result = orders.create_order(orderreform)
 
         if result.is_success():
             self.id = result.body.id

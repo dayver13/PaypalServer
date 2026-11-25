@@ -1,5 +1,5 @@
 from paypalserversdk.models.payment_source import PaymentSource
-from card import card
+from Definitions.card import card
 from Classes.CardClass import Card_information
 
 

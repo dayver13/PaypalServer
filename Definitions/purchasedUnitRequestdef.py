@@ -7,6 +7,7 @@ from paypalserversdk.models.payment_instruction import PaymentInstruction
 from paypalserversdk.models.platform_fee import PlatformFee
 from paypalserversdk.models.purchase_unit_request import PurchaseUnitRequest
 from Classes.PurchaseUnitReqClass import PurchasedUnitReqInfo
+import os
 
 
 def purchasedUnitReq(PurchasedUnitRInf: PurchasedUnitReqInfo):
@@ -39,8 +40,7 @@ def purchasedUnitReq(PurchasedUnitRInf: PurchasedUnitReqInfo):
         ),
         reference_id=PurchasedUnitRInf.referenceID,
         payee=PayeeBase(
-            email_address='dayver13@me.com',
-            merchant_id='merchant_id6'
+            email_address=os.environ['PAYPAL_PAYEE_EMAIL']
         ),
         description=PurchasedUnitRInf.description,
         custom_id=PurchasedUnitRInf.customID

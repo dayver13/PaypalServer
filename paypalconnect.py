@@ -10,6 +10,10 @@ from paypalserversdk.models.amount_with_breakdown import AmountWithBreakdown
 from paypalserversdk.models.purchase_unit_request import PurchaseUnitRequest
 from OrdersController import OrderController
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class PaypalClient:
@@ -19,8 +23,8 @@ class PaypalClient:
     def __init__(self):
         self.client = PaypalServersdkClient(
             client_credentials_auth_credentials=ClientCredentialsAuthCredentials(
-                o_auth_client_id='BAAAB83RyuLrVrzRMCujN4hsCwcMIdg864wn-gop_RD3svGiR-NMozaccjpOo_Tuy_DGMMmtnhKQzW7Q3Q',
-                o_auth_client_secret='ECbeRhdssacQiyBeEPME5jqZ-G5UX8Fx-H1bGZNzUSTYojhlyqkG_Xbz9l5TK1h1L91Rk3M_joC6VNai'
+                o_auth_client_id=os.environ['PAYPAL_CLIENT_ID'],
+                o_auth_client_secret=os.environ['PAYPAL_CLIENT_SECRET']
             ),
             environment=Environment.SANDBOX,
             logging_configuration=LoggingConfiguration(
@@ -35,7 +39,9 @@ class PaypalClient:
         )
 
     def addBody(self, OrderR: OrderRequest):
-        self.OrderCon = OrderR
+        OrderC = OrderController()
+        self.OrderCon = OrderC
+        self.OrderCon.addbody(OrderR)
 
     def createorder(self):
 
